@@ -1,0 +1,32 @@
+# Placeholder operations for the mobile connector.
+# Replace or expand these operations after running `firebase init dataconnect`
+# against the final Firebase project so the generated SDK matches your service.
+
+query ListProducts @auth(level: PUBLIC, insecureReason: "Internal prototype") {
+  products {
+    id
+    nombre
+    parteGeneral
+    tipo
+    diseno
+    tipoManga
+    tipoCuello
+    color
+    talla
+    precio
+    stock
+    stockReferencia
+    ubicacion
+    codigoProducto
+    qrCode
+    stockMinimo
+  }
+}
+
+query ListSales @auth(level: PUBLIC, insecureReason: "Internal prototype") {
+  sales {
+    id
+    total
+    fecha
+  }
+}

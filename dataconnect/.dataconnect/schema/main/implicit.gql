@@ -1,0 +1,26 @@
+extend type Sale {
+  """
+  ✨ Implicit foreign key field based on `Sale`.`user`. It must match the value of `AppUser`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID @fdc_generated(from: "Sale.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type SaleItem {
+  """
+  ✨ Implicit foreign key field based on `SaleItem`.`product`. It must match the value of `Product`.`id`. See `@ref` for how to customize it.
+  """
+  productId: UUID! @fdc_generated(from: "SaleItem.product", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `SaleItem`.`sale`. It must match the value of `Sale`.`id`. See `@ref` for how to customize it.
+  """
+  saleId: UUID! @fdc_generated(from: "SaleItem.sale", purpose: IMPLICIT_REF_FIELD)
+}
+extend type StockIngress {
+  """
+  ✨ Implicit foreign key field based on `StockIngress`.`product`. It must match the value of `Product`.`id`. See `@ref` for how to customize it.
+  """
+  productId: UUID! @fdc_generated(from: "StockIngress.product", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `StockIngress`.`user`. It must match the value of `AppUser`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID @fdc_generated(from: "StockIngress.user", purpose: IMPLICIT_REF_FIELD)
+}

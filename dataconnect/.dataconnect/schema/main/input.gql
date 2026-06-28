@@ -1,0 +1,1977 @@
+"""
+✨ `AppUser_KeyOutput` returns the primary key fields of table type `AppUser`.
+
+It has the same format as `AppUser_Key`, but is only used as mutation return value.
+"""
+scalar AppUser_KeyOutput
+"""
+✨ `Product_KeyOutput` returns the primary key fields of table type `Product`.
+
+It has the same format as `Product_Key`, but is only used as mutation return value.
+"""
+scalar Product_KeyOutput
+"""
+✨ `Sale_KeyOutput` returns the primary key fields of table type `Sale`.
+
+It has the same format as `Sale_Key`, but is only used as mutation return value.
+"""
+scalar Sale_KeyOutput
+"""
+✨ `SaleItem_KeyOutput` returns the primary key fields of table type `SaleItem`.
+
+It has the same format as `SaleItem_Key`, but is only used as mutation return value.
+"""
+scalar SaleItem_KeyOutput
+"""
+✨ `StockIngress_KeyOutput` returns the primary key fields of table type `StockIngress`.
+
+It has the same format as `StockIngress_Key`, but is only used as mutation return value.
+"""
+scalar StockIngress_KeyOutput
+"""
+✨ Generated data input type for table 'AppUser'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input AppUser_Data {
+  """
+  ✨ Generated from Field `AppUser`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `AppUser`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `AppUser`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `AppUser`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `AppUser`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `AppUser`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `AppUser`.`nombre` of type `String!`
+  """
+  nombre: String
+  """
+  ✨ `_expr` server value variant of `nombre` (✨ Generated from Field `AppUser`.`nombre` of type `String!`)
+  """
+  nombre_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `AppUser`.`password` of type `String!`
+  """
+  password: String
+  """
+  ✨ `_expr` server value variant of `password` (✨ Generated from Field `AppUser`.`password` of type `String!`)
+  """
+  password_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `AppUser`.`rol` of type `String!`
+  """
+  rol: String
+  """
+  ✨ `_expr` server value variant of `rol` (✨ Generated from Field `AppUser`.`rol` of type `String!`)
+  """
+  rol_expr: String_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated filter input type for table 'AppUser'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input AppUser_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [AppUser_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: AppUser_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [AppUser_Filter!]
+  """
+  ✨ Generated from Field `AppUser`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `AppUser`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `AppUser`.`nombre` of type `String!`
+  """
+  nombre: String_Filter
+  """
+  ✨ Generated from Field `AppUser`.`password` of type `String!`
+  """
+  password: String_Filter
+  """
+  ✨ Generated from Field `AppUser`.`rol` of type `String!`
+  """
+  rol: String_Filter
+  """
+  ✨ Generated from Field `AppUser`.`sales_on_user` of type `[Sale!]!`
+  """
+  sales_on_user: Sale_ListFilter
+  """
+  ✨ Generated from Field `AppUser`.`stockIngresses_on_user` of type `[StockIngress!]!`
+  """
+  stockIngresses_on_user: StockIngress_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'AppUser'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input AppUser_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [AppUser_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: AppUser_Filter
+}
+"""
+✨ Generated having input type for table 'AppUser'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input AppUser_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [AppUser_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: AppUser_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [AppUser_Having!]
+  """
+  ✨ Generated from Field `AppUser`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `AppUser`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `AppUser`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `AppUser`.`nombre_count` of type `Int!`
+  """
+  nombre_count: Int_Filter
+  """
+  ✨ Generated from Field `AppUser`.`password_count` of type `Int!`
+  """
+  password_count: Int_Filter
+  """
+  ✨ Generated from Field `AppUser`.`rol_count` of type `Int!`
+  """
+  rol_count: Int_Filter
+  """
+  ✨ Generated from Field `AppUser`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `AppUser`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'AppUser'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input AppUser_Key {
+  """
+  ✨ Generated from Field `AppUser`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `AppUser`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated list filter input type for table 'AppUser'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input AppUser_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: AppUser_Filter
+}
+"""
+✨ Generated order input type for table 'AppUser'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input AppUser_Order {
+  """
+  ✨ Generated from Field `AppUser`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`nombre` of type `String!`
+  """
+  nombre: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`password` of type `String!`
+  """
+  password: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`rol` of type `String!`
+  """
+  rol: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`nombre_count` of type `Int!`
+  """
+  nombre_count: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`password_count` of type `Int!`
+  """
+  password_count: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`rol_count` of type `Int!`
+  """
+  rol_count: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `AppUser`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Product'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Product_Data {
+  """
+  ✨ Generated from Field `Product`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Product`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: String
+  """
+  ✨ `_expr` server value variant of `codigoProducto` (✨ Generated from Field `Product`.`codigoProducto` of type `String!`)
+  """
+  codigoProducto_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`color` of type `String!`
+  """
+  color: String
+  """
+  ✨ `_expr` server value variant of `color` (✨ Generated from Field `Product`.`color` of type `String!`)
+  """
+  color_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `Product`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `Product`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `Product`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`diseno` of type `String`
+  """
+  diseno: String
+  """
+  ✨ `_expr` server value variant of `diseno` (✨ Generated from Field `Product`.`diseno` of type `String`)
+  """
+  diseno_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`nombre` of type `String!`
+  """
+  nombre: String
+  """
+  ✨ `_expr` server value variant of `nombre` (✨ Generated from Field `Product`.`nombre` of type `String!`)
+  """
+  nombre_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`parteGeneral` of type `String!`
+  """
+  parteGeneral: String
+  """
+  ✨ `_expr` server value variant of `parteGeneral` (✨ Generated from Field `Product`.`parteGeneral` of type `String!`)
+  """
+  parteGeneral_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`precio` of type `Float!`
+  """
+  precio: Float
+  """
+  ✨ `_expr` server value variant of `precio` (✨ Generated from Field `Product`.`precio` of type `Float!`)
+  """
+  precio_expr: Float_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `precio` (✨ Generated from Field `Product`.`precio` of type `Float!`)
+  """
+  precio_update: [Float_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`qrCode` of type `String!`
+  """
+  qrCode: String
+  """
+  ✨ `_expr` server value variant of `qrCode` (✨ Generated from Field `Product`.`qrCode` of type `String!`)
+  """
+  qrCode_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`stock` of type `Int!`
+  """
+  stock: Int
+  """
+  ✨ `_expr` server value variant of `stock` (✨ Generated from Field `Product`.`stock` of type `Int!`)
+  """
+  stock_expr: Int_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `stock` (✨ Generated from Field `Product`.`stock` of type `Int!`)
+  """
+  stock_update: [Int_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`stockMinimo` of type `Int!`
+  """
+  stockMinimo: Int
+  """
+  ✨ `_expr` server value variant of `stockMinimo` (✨ Generated from Field `Product`.`stockMinimo` of type `Int!`)
+  """
+  stockMinimo_expr: Int_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `stockMinimo` (✨ Generated from Field `Product`.`stockMinimo` of type `Int!`)
+  """
+  stockMinimo_update: [Int_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`stockReferencia` of type `Int!`
+  """
+  stockReferencia: Int
+  """
+  ✨ `_expr` server value variant of `stockReferencia` (✨ Generated from Field `Product`.`stockReferencia` of type `Int!`)
+  """
+  stockReferencia_expr: Int_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `stockReferencia` (✨ Generated from Field `Product`.`stockReferencia` of type `Int!`)
+  """
+  stockReferencia_update: [Int_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`talla` of type `String!`
+  """
+  talla: String
+  """
+  ✨ `_expr` server value variant of `talla` (✨ Generated from Field `Product`.`talla` of type `String!`)
+  """
+  talla_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`tipo` of type `String!`
+  """
+  tipo: String
+  """
+  ✨ `_expr` server value variant of `tipo` (✨ Generated from Field `Product`.`tipo` of type `String!`)
+  """
+  tipo_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`tipoCuello` of type `String`
+  """
+  tipoCuello: String
+  """
+  ✨ `_expr` server value variant of `tipoCuello` (✨ Generated from Field `Product`.`tipoCuello` of type `String`)
+  """
+  tipoCuello_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`tipoManga` of type `String`
+  """
+  tipoManga: String
+  """
+  ✨ `_expr` server value variant of `tipoManga` (✨ Generated from Field `Product`.`tipoManga` of type `String`)
+  """
+  tipoManga_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`ubicacion` of type `String!`
+  """
+  ubicacion: String
+  """
+  ✨ `_expr` server value variant of `ubicacion` (✨ Generated from Field `Product`.`ubicacion` of type `String!`)
+  """
+  ubicacion_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Product`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `updatedAt` (✨ Generated from Field `Product`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_expr: Timestamp_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_time` server value variant of `updatedAt` (✨ Generated from Field `Product`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_time: Timestamp_Relative @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `updatedAt` (✨ Generated from Field `Product`.`updatedAt` of type `Timestamp!`)
+  """
+  updatedAt_update: [Timestamp_Update!] @fdc_forbiddenInVariables
+}
+"""
+✨ Generated filter input type for table 'Product'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Product_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Product_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Product_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Product_Filter!]
+  """
+  ✨ Generated from Field `Product`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Product`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: String_Filter
+  """
+  ✨ Generated from Field `Product`.`color` of type `String!`
+  """
+  color: String_Filter
+  """
+  ✨ Generated from Field `Product`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Product`.`diseno` of type `String`
+  """
+  diseno: String_Filter
+  """
+  ✨ Generated from Field `Product`.`nombre` of type `String!`
+  """
+  nombre: String_Filter
+  """
+  ✨ Generated from Field `Product`.`parteGeneral` of type `String!`
+  """
+  parteGeneral: String_Filter
+  """
+  ✨ Generated from Field `Product`.`precio` of type `Float!`
+  """
+  precio: Float_Filter
+  """
+  ✨ Generated from Field `Product`.`qrCode` of type `String!`
+  """
+  qrCode: String_Filter
+  """
+  ✨ Generated from Field `Product`.`stock` of type `Int!`
+  """
+  stock: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stockMinimo` of type `Int!`
+  """
+  stockMinimo: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stockReferencia` of type `Int!`
+  """
+  stockReferencia: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`talla` of type `String!`
+  """
+  talla: String_Filter
+  """
+  ✨ Generated from Field `Product`.`tipo` of type `String!`
+  """
+  tipo: String_Filter
+  """
+  ✨ Generated from Field `Product`.`tipoCuello` of type `String`
+  """
+  tipoCuello: String_Filter
+  """
+  ✨ Generated from Field `Product`.`tipoManga` of type `String`
+  """
+  tipoManga: String_Filter
+  """
+  ✨ Generated from Field `Product`.`ubicacion` of type `String!`
+  """
+  ubicacion: String_Filter
+  """
+  ✨ Generated from Field `Product`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Product`.`saleItems_on_product` of type `[SaleItem!]!`
+  """
+  saleItems_on_product: SaleItem_ListFilter
+  """
+  ✨ Generated from Field `Product`.`stockIngresses_on_product` of type `[StockIngress!]!`
+  """
+  stockIngresses_on_product: StockIngress_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Product'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Product_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Product_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Product_Filter
+}
+"""
+✨ Generated having input type for table 'Product'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Product_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Product_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Product_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Product_Having!]
+  """
+  ✨ Generated from Field `Product`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`codigoProducto_count` of type `Int!`
+  """
+  codigoProducto_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`color_count` of type `Int!`
+  """
+  color_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`diseno_count` of type `Int!`
+  """
+  diseno_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`nombre_count` of type `Int!`
+  """
+  nombre_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`parteGeneral_count` of type `Int!`
+  """
+  parteGeneral_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`precio_count` of type `Int!`
+  """
+  precio_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`qrCode_count` of type `Int!`
+  """
+  qrCode_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_count` of type `Int!`
+  """
+  stockMinimo_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_count` of type `Int!`
+  """
+  stockReferencia_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stock_count` of type `Int!`
+  """
+  stock_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`talla_count` of type `Int!`
+  """
+  talla_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`tipoCuello_count` of type `Int!`
+  """
+  tipoCuello_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`tipoManga_count` of type `Int!`
+  """
+  tipoManga_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`tipo_count` of type `Int!`
+  """
+  tipo_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`ubicacion_count` of type `Int!`
+  """
+  ubicacion_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`updatedAt_count` of type `Int!`
+  """
+  updatedAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`precio_sum` of type `Float`
+  """
+  precio_sum: Float_Filter
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_sum` of type `Int`
+  """
+  stockMinimo_sum: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_sum` of type `Int`
+  """
+  stockReferencia_sum: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stock_sum` of type `Int`
+  """
+  stock_sum: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`precio_avg` of type `Float`
+  """
+  precio_avg: Float_Filter
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_avg` of type `Float`
+  """
+  stockMinimo_avg: Float_Filter
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_avg` of type `Float`
+  """
+  stockReferencia_avg: Float_Filter
+  """
+  ✨ Generated from Field `Product`.`stock_avg` of type `Float`
+  """
+  stock_avg: Float_Filter
+  """
+  ✨ Generated from Field `Product`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Product`.`precio_min` of type `Float`
+  """
+  precio_min: Float_Filter
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_min` of type `Int`
+  """
+  stockMinimo_min: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_min` of type `Int`
+  """
+  stockReferencia_min: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stock_min` of type `Int`
+  """
+  stock_min: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`updatedAt_min` of type `Timestamp`
+  """
+  updatedAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Product`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `Product`.`precio_max` of type `Float`
+  """
+  precio_max: Float_Filter
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_max` of type `Int`
+  """
+  stockMinimo_max: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_max` of type `Int`
+  """
+  stockReferencia_max: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`stock_max` of type `Int`
+  """
+  stock_max: Int_Filter
+  """
+  ✨ Generated from Field `Product`.`updatedAt_max` of type `Timestamp`
+  """
+  updatedAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'Product'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Product_Key {
+  """
+  ✨ Generated from Field `Product`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Product`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated list filter input type for table 'Product'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Product_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Product_Filter
+}
+"""
+✨ Generated order input type for table 'Product'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Product_Order {
+  """
+  ✨ Generated from Field `Product`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`color` of type `String!`
+  """
+  color: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`diseno` of type `String`
+  """
+  diseno: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`nombre` of type `String!`
+  """
+  nombre: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`parteGeneral` of type `String!`
+  """
+  parteGeneral: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`precio` of type `Float!`
+  """
+  precio: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`qrCode` of type `String!`
+  """
+  qrCode: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stock` of type `Int!`
+  """
+  stock: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockMinimo` of type `Int!`
+  """
+  stockMinimo: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockReferencia` of type `Int!`
+  """
+  stockReferencia: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`talla` of type `String!`
+  """
+  talla: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`tipo` of type `String!`
+  """
+  tipo: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`tipoCuello` of type `String`
+  """
+  tipoCuello: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`tipoManga` of type `String`
+  """
+  tipoManga: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`ubicacion` of type `String!`
+  """
+  ubicacion: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`updatedAt` of type `Timestamp!`
+  """
+  updatedAt: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`codigoProducto_count` of type `Int!`
+  """
+  codigoProducto_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`color_count` of type `Int!`
+  """
+  color_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`diseno_count` of type `Int!`
+  """
+  diseno_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`nombre_count` of type `Int!`
+  """
+  nombre_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`parteGeneral_count` of type `Int!`
+  """
+  parteGeneral_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`precio_count` of type `Int!`
+  """
+  precio_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`qrCode_count` of type `Int!`
+  """
+  qrCode_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_count` of type `Int!`
+  """
+  stockMinimo_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_count` of type `Int!`
+  """
+  stockReferencia_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stock_count` of type `Int!`
+  """
+  stock_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`talla_count` of type `Int!`
+  """
+  talla_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`tipoCuello_count` of type `Int!`
+  """
+  tipoCuello_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`tipoManga_count` of type `Int!`
+  """
+  tipoManga_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`tipo_count` of type `Int!`
+  """
+  tipo_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`ubicacion_count` of type `Int!`
+  """
+  ubicacion_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`updatedAt_count` of type `Int!`
+  """
+  updatedAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`precio_sum` of type `Float`
+  """
+  precio_sum: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_sum` of type `Int`
+  """
+  stockMinimo_sum: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_sum` of type `Int`
+  """
+  stockReferencia_sum: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stock_sum` of type `Int`
+  """
+  stock_sum: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`precio_avg` of type `Float`
+  """
+  precio_avg: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_avg` of type `Float`
+  """
+  stockMinimo_avg: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_avg` of type `Float`
+  """
+  stockReferencia_avg: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stock_avg` of type `Float`
+  """
+  stock_avg: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`precio_min` of type `Float`
+  """
+  precio_min: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_min` of type `Int`
+  """
+  stockMinimo_min: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_min` of type `Int`
+  """
+  stockReferencia_min: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stock_min` of type `Int`
+  """
+  stock_min: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`updatedAt_min` of type `Timestamp`
+  """
+  updatedAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`precio_max` of type `Float`
+  """
+  precio_max: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockMinimo_max` of type `Int`
+  """
+  stockMinimo_max: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stockReferencia_max` of type `Int`
+  """
+  stockReferencia_max: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`stock_max` of type `Int`
+  """
+  stock_max: OrderDirection
+  """
+  ✨ Generated from Field `Product`.`updatedAt_max` of type `Timestamp`
+  """
+  updatedAt_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Sale'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Sale_Data {
+  """
+  ✨ Generated from Field `Sale`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Sale`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Sale`.`userId` of type `UUID`
+  """
+  userId: UUID
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `Sale`.`userId` of type `UUID`)
+  """
+  userId_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Sale`.`user` of type `AppUser`
+  """
+  user: AppUser_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Sale`.`fecha` of type `Timestamp!`
+  """
+  fecha: Timestamp
+  """
+  ✨ `_expr` server value variant of `fecha` (✨ Generated from Field `Sale`.`fecha` of type `Timestamp!`)
+  """
+  fecha_expr: Timestamp_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_time` server value variant of `fecha` (✨ Generated from Field `Sale`.`fecha` of type `Timestamp!`)
+  """
+  fecha_time: Timestamp_Relative @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `fecha` (✨ Generated from Field `Sale`.`fecha` of type `Timestamp!`)
+  """
+  fecha_update: [Timestamp_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `Sale`.`total` of type `Float!`
+  """
+  total: Float
+  """
+  ✨ `_expr` server value variant of `total` (✨ Generated from Field `Sale`.`total` of type `Float!`)
+  """
+  total_expr: Float_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `total` (✨ Generated from Field `Sale`.`total` of type `Float!`)
+  """
+  total_update: [Float_Update!] @fdc_forbiddenInVariables
+}
+"""
+✨ Generated filter input type for table 'Sale'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Sale_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Sale_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Sale_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Sale_Filter!]
+  """
+  ✨ Generated from Field `Sale`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Sale`.`userId` of type `UUID`
+  """
+  userId: UUID_Filter
+  """
+  ✨ Generated from Field `Sale`.`user` of type `AppUser`
+  """
+  user: AppUser_Filter
+  """
+  ✨ Generated from Field `Sale`.`fecha` of type `Timestamp!`
+  """
+  fecha: Timestamp_Filter
+  """
+  ✨ Generated from Field `Sale`.`total` of type `Float!`
+  """
+  total: Float_Filter
+  """
+  ✨ Generated from Field `Sale`.`saleItems_on_sale` of type `[SaleItem!]!`
+  """
+  saleItems_on_sale: SaleItem_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Sale'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Sale_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Sale_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Sale_Filter
+}
+"""
+✨ Generated having input type for table 'Sale'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Sale_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Sale_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Sale_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Sale_Having!]
+  """
+  ✨ Generated from Field `Sale`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Sale`.`fecha_count` of type `Int!`
+  """
+  fecha_count: Int_Filter
+  """
+  ✨ Generated from Field `Sale`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Sale`.`total_count` of type `Int!`
+  """
+  total_count: Int_Filter
+  """
+  ✨ Generated from Field `Sale`.`userId_count` of type `Int!`
+  """
+  userId_count: Int_Filter
+  """
+  ✨ Generated from Field `Sale`.`total_sum` of type `Float`
+  """
+  total_sum: Float_Filter
+  """
+  ✨ Generated from Field `Sale`.`total_avg` of type `Float`
+  """
+  total_avg: Float_Filter
+  """
+  ✨ Generated from Field `Sale`.`fecha_min` of type `Timestamp`
+  """
+  fecha_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Sale`.`total_min` of type `Float`
+  """
+  total_min: Float_Filter
+  """
+  ✨ Generated from Field `Sale`.`fecha_max` of type `Timestamp`
+  """
+  fecha_max: Timestamp_Filter
+  """
+  ✨ Generated from Field `Sale`.`total_max` of type `Float`
+  """
+  total_max: Float_Filter
+}
+"""
+✨ Generated key input type for table 'Sale'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Sale_Key {
+  """
+  ✨ Generated from Field `Sale`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Sale`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated list filter input type for table 'Sale'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Sale_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Sale_Filter
+}
+"""
+✨ Generated order input type for table 'Sale'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Sale_Order {
+  """
+  ✨ Generated from Field `Sale`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`userId` of type `UUID`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`user` of type `AppUser`
+  """
+  user: AppUser_Order
+  """
+  ✨ Generated from Field `Sale`.`fecha` of type `Timestamp!`
+  """
+  fecha: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`total` of type `Float!`
+  """
+  total: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`fecha_count` of type `Int!`
+  """
+  fecha_count: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`total_count` of type `Int!`
+  """
+  total_count: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`userId_count` of type `Int!`
+  """
+  userId_count: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`total_sum` of type `Float`
+  """
+  total_sum: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`total_avg` of type `Float`
+  """
+  total_avg: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`fecha_min` of type `Timestamp`
+  """
+  fecha_min: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`total_min` of type `Float`
+  """
+  total_min: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`fecha_max` of type `Timestamp`
+  """
+  fecha_max: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`total_max` of type `Float`
+  """
+  total_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'SaleItem'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input SaleItem_Data {
+  """
+  ✨ Generated from Field `SaleItem`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `SaleItem`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SaleItem`.`productId` of type `UUID!`
+  """
+  productId: UUID
+  """
+  ✨ `_expr` server value variant of `productId` (✨ Generated from Field `SaleItem`.`productId` of type `UUID!`)
+  """
+  productId_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SaleItem`.`saleId` of type `UUID!`
+  """
+  saleId: UUID
+  """
+  ✨ `_expr` server value variant of `saleId` (✨ Generated from Field `SaleItem`.`saleId` of type `UUID!`)
+  """
+  saleId_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SaleItem`.`product` of type `Product!`
+  """
+  product: Product_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SaleItem`.`sale` of type `Sale!`
+  """
+  sale: Sale_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad` of type `Int!`
+  """
+  cantidad: Int
+  """
+  ✨ `_expr` server value variant of `cantidad` (✨ Generated from Field `SaleItem`.`cantidad` of type `Int!`)
+  """
+  cantidad_expr: Int_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `cantidad` (✨ Generated from Field `SaleItem`.`cantidad` of type `Int!`)
+  """
+  cantidad_update: [Int_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SaleItem`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: String
+  """
+  ✨ `_expr` server value variant of `codigoProducto` (✨ Generated from Field `SaleItem`.`codigoProducto` of type `String!`)
+  """
+  codigoProducto_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SaleItem`.`nombreProducto` of type `String!`
+  """
+  nombreProducto: String
+  """
+  ✨ `_expr` server value variant of `nombreProducto` (✨ Generated from Field `SaleItem`.`nombreProducto` of type `String!`)
+  """
+  nombreProducto_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `SaleItem`.`precio` of type `Float!`
+  """
+  precio: Float
+  """
+  ✨ `_expr` server value variant of `precio` (✨ Generated from Field `SaleItem`.`precio` of type `Float!`)
+  """
+  precio_expr: Float_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `precio` (✨ Generated from Field `SaleItem`.`precio` of type `Float!`)
+  """
+  precio_update: [Float_Update!] @fdc_forbiddenInVariables
+}
+"""
+✨ Generated filter input type for table 'SaleItem'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input SaleItem_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [SaleItem_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: SaleItem_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [SaleItem_Filter!]
+  """
+  ✨ Generated from Field `SaleItem`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`productId` of type `UUID!`
+  """
+  productId: UUID_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`saleId` of type `UUID!`
+  """
+  saleId: UUID_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`product` of type `Product!`
+  """
+  product: Product_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`sale` of type `Sale!`
+  """
+  sale: Sale_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad` of type `Int!`
+  """
+  cantidad: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: String_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`nombreProducto` of type `String!`
+  """
+  nombreProducto: String_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`precio` of type `Float!`
+  """
+  precio: Float_Filter
+}
+"""
+✨ Generated first-row input type for table 'SaleItem'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input SaleItem_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [SaleItem_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: SaleItem_Filter
+}
+"""
+✨ Generated having input type for table 'SaleItem'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input SaleItem_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [SaleItem_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: SaleItem_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [SaleItem_Having!]
+  """
+  ✨ Generated from Field `SaleItem`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_count` of type `Int!`
+  """
+  cantidad_count: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`codigoProducto_count` of type `Int!`
+  """
+  codigoProducto_count: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`nombreProducto_count` of type `Int!`
+  """
+  nombreProducto_count: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`precio_count` of type `Int!`
+  """
+  precio_count: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`productId_count` of type `Int!`
+  """
+  productId_count: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`saleId_count` of type `Int!`
+  """
+  saleId_count: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_sum` of type `Int`
+  """
+  cantidad_sum: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`precio_sum` of type `Float`
+  """
+  precio_sum: Float_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_avg` of type `Float`
+  """
+  cantidad_avg: Float_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`precio_avg` of type `Float`
+  """
+  precio_avg: Float_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_min` of type `Int`
+  """
+  cantidad_min: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`precio_min` of type `Float`
+  """
+  precio_min: Float_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_max` of type `Int`
+  """
+  cantidad_max: Int_Filter
+  """
+  ✨ Generated from Field `SaleItem`.`precio_max` of type `Float`
+  """
+  precio_max: Float_Filter
+}
+"""
+✨ Generated key input type for table 'SaleItem'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input SaleItem_Key {
+  """
+  ✨ Generated from Field `SaleItem`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `SaleItem`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated list filter input type for table 'SaleItem'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input SaleItem_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: SaleItem_Filter
+}
+"""
+✨ Generated order input type for table 'SaleItem'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input SaleItem_Order {
+  """
+  ✨ Generated from Field `SaleItem`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`productId` of type `UUID!`
+  """
+  productId: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`saleId` of type `UUID!`
+  """
+  saleId: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`product` of type `Product!`
+  """
+  product: Product_Order
+  """
+  ✨ Generated from Field `SaleItem`.`sale` of type `Sale!`
+  """
+  sale: Sale_Order
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad` of type `Int!`
+  """
+  cantidad: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`nombreProducto` of type `String!`
+  """
+  nombreProducto: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`precio` of type `Float!`
+  """
+  precio: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_count` of type `Int!`
+  """
+  cantidad_count: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`codigoProducto_count` of type `Int!`
+  """
+  codigoProducto_count: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`nombreProducto_count` of type `Int!`
+  """
+  nombreProducto_count: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`precio_count` of type `Int!`
+  """
+  precio_count: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`productId_count` of type `Int!`
+  """
+  productId_count: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`saleId_count` of type `Int!`
+  """
+  saleId_count: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_sum` of type `Int`
+  """
+  cantidad_sum: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`precio_sum` of type `Float`
+  """
+  precio_sum: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_avg` of type `Float`
+  """
+  cantidad_avg: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`precio_avg` of type `Float`
+  """
+  precio_avg: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_min` of type `Int`
+  """
+  cantidad_min: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`precio_min` of type `Float`
+  """
+  precio_min: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`cantidad_max` of type `Int`
+  """
+  cantidad_max: OrderDirection
+  """
+  ✨ Generated from Field `SaleItem`.`precio_max` of type `Float`
+  """
+  precio_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'StockIngress'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input StockIngress_Data {
+  """
+  ✨ Generated from Field `StockIngress`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `StockIngress`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `StockIngress`.`productId` of type `UUID!`
+  """
+  productId: UUID
+  """
+  ✨ `_expr` server value variant of `productId` (✨ Generated from Field `StockIngress`.`productId` of type `UUID!`)
+  """
+  productId_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `StockIngress`.`userId` of type `UUID`
+  """
+  userId: UUID
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `StockIngress`.`userId` of type `UUID`)
+  """
+  userId_expr: UUID_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `StockIngress`.`product` of type `Product!`
+  """
+  product: Product_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `StockIngress`.`user` of type `AppUser`
+  """
+  user: AppUser_Key @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad` of type `Int!`
+  """
+  cantidad: Int
+  """
+  ✨ `_expr` server value variant of `cantidad` (✨ Generated from Field `StockIngress`.`cantidad` of type `Int!`)
+  """
+  cantidad_expr: Int_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `cantidad` (✨ Generated from Field `StockIngress`.`cantidad` of type `Int!`)
+  """
+  cantidad_update: [Int_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `StockIngress`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: String
+  """
+  ✨ `_expr` server value variant of `codigoProducto` (✨ Generated from Field `StockIngress`.`codigoProducto` of type `String!`)
+  """
+  codigoProducto_expr: String_Expr @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `StockIngress`.`fecha` of type `Timestamp!`
+  """
+  fecha: Timestamp
+  """
+  ✨ `_expr` server value variant of `fecha` (✨ Generated from Field `StockIngress`.`fecha` of type `Timestamp!`)
+  """
+  fecha_expr: Timestamp_Expr @fdc_forbiddenInVariables
+  """
+  ✨ `_time` server value variant of `fecha` (✨ Generated from Field `StockIngress`.`fecha` of type `Timestamp!`)
+  """
+  fecha_time: Timestamp_Relative @fdc_forbiddenInVariables
+  """
+  ✨ `_update` server value variant of `fecha` (✨ Generated from Field `StockIngress`.`fecha` of type `Timestamp!`)
+  """
+  fecha_update: [Timestamp_Update!] @fdc_forbiddenInVariables
+  """
+  ✨ Generated from Field `StockIngress`.`nombreProducto` of type `String!`
+  """
+  nombreProducto: String
+  """
+  ✨ `_expr` server value variant of `nombreProducto` (✨ Generated from Field `StockIngress`.`nombreProducto` of type `String!`)
+  """
+  nombreProducto_expr: String_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated filter input type for table 'StockIngress'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input StockIngress_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [StockIngress_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: StockIngress_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [StockIngress_Filter!]
+  """
+  ✨ Generated from Field `StockIngress`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`productId` of type `UUID!`
+  """
+  productId: UUID_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`userId` of type `UUID`
+  """
+  userId: UUID_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`product` of type `Product!`
+  """
+  product: Product_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`user` of type `AppUser`
+  """
+  user: AppUser_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad` of type `Int!`
+  """
+  cantidad: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: String_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`fecha` of type `Timestamp!`
+  """
+  fecha: Timestamp_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`nombreProducto` of type `String!`
+  """
+  nombreProducto: String_Filter
+}
+"""
+✨ Generated first-row input type for table 'StockIngress'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input StockIngress_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [StockIngress_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: StockIngress_Filter
+}
+"""
+✨ Generated having input type for table 'StockIngress'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input StockIngress_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [StockIngress_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: StockIngress_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [StockIngress_Having!]
+  """
+  ✨ Generated from Field `StockIngress`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_count` of type `Int!`
+  """
+  cantidad_count: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`codigoProducto_count` of type `Int!`
+  """
+  codigoProducto_count: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`fecha_count` of type `Int!`
+  """
+  fecha_count: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`nombreProducto_count` of type `Int!`
+  """
+  nombreProducto_count: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`productId_count` of type `Int!`
+  """
+  productId_count: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`userId_count` of type `Int!`
+  """
+  userId_count: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_sum` of type `Int`
+  """
+  cantidad_sum: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_avg` of type `Float`
+  """
+  cantidad_avg: Float_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_min` of type `Int`
+  """
+  cantidad_min: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`fecha_min` of type `Timestamp`
+  """
+  fecha_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_max` of type `Int`
+  """
+  cantidad_max: Int_Filter
+  """
+  ✨ Generated from Field `StockIngress`.`fecha_max` of type `Timestamp`
+  """
+  fecha_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'StockIngress'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input StockIngress_Key {
+  """
+  ✨ Generated from Field `StockIngress`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `StockIngress`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr @fdc_forbiddenInVariables
+}
+"""
+✨ Generated list filter input type for table 'StockIngress'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input StockIngress_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: StockIngress_Filter
+}
+"""
+✨ Generated order input type for table 'StockIngress'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input StockIngress_Order {
+  """
+  ✨ Generated from Field `StockIngress`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`productId` of type `UUID!`
+  """
+  productId: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`userId` of type `UUID`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`product` of type `Product!`
+  """
+  product: Product_Order
+  """
+  ✨ Generated from Field `StockIngress`.`user` of type `AppUser`
+  """
+  user: AppUser_Order
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad` of type `Int!`
+  """
+  cantidad: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`codigoProducto` of type `String!`
+  """
+  codigoProducto: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`fecha` of type `Timestamp!`
+  """
+  fecha: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`nombreProducto` of type `String!`
+  """
+  nombreProducto: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_count` of type `Int!`
+  """
+  cantidad_count: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`codigoProducto_count` of type `Int!`
+  """
+  codigoProducto_count: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`fecha_count` of type `Int!`
+  """
+  fecha_count: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`nombreProducto_count` of type `Int!`
+  """
+  nombreProducto_count: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`productId_count` of type `Int!`
+  """
+  productId_count: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`userId_count` of type `Int!`
+  """
+  userId_count: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_sum` of type `Int`
+  """
+  cantidad_sum: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_avg` of type `Float`
+  """
+  cantidad_avg: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_min` of type `Int`
+  """
+  cantidad_min: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`fecha_min` of type `Timestamp`
+  """
+  fecha_min: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`cantidad_max` of type `Int`
+  """
+  cantidad_max: OrderDirection
+  """
+  ✨ Generated from Field `StockIngress`.`fecha_max` of type `Timestamp`
+  """
+  fecha_max: OrderDirection
+}

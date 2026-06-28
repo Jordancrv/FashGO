@@ -1,0 +1,17 @@
+query GetProducts @auth(level: PUBLIC) {
+  products {
+    id
+    nombre
+    codigoProducto
+    precio
+    stock
+  }
+}
+
+query GetAppUsers @auth(level: PUBLIC) {
+  appUsers {
+    id
+    nombre
+    rol
+  }
+}

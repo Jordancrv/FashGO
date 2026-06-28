@@ -1,0 +1,4 @@
+connectorId: mobile
+generate:
+  kotlinSdk:
+    package: com.example.fashgo.dataconnect

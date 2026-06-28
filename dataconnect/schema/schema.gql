@@ -1,0 +1,55 @@
+type Product @table {
+  id: UUID! @default(expr: "uuidV4()")
+  nombre: String!
+  parteGeneral: String!
+  tipo: String!
+  diseno: String
+  tipoManga: String
+  tipoCuello: String
+  color: String!
+  talla: String!
+  precio: Float!
+  stock: Int!
+  stockReferencia: Int!
+  ubicacion: String!
+  codigoProducto: String! @unique
+  qrCode: String! @unique
+  stockMinimo: Int!
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+type AppUser @table {
+  id: UUID! @default(expr: "uuidV4()")
+  nombre: String! @unique
+  password: String!
+  rol: String!
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+type StockIngress @table {
+  id: UUID! @default(expr: "uuidV4()")
+  product: Product!
+  user: AppUser
+  nombreProducto: String!
+  codigoProducto: String!
+  cantidad: Int!
+  fecha: Timestamp! @default(expr: "request.time")
+}
+
+type Sale @table {
+  id: UUID! @default(expr: "uuidV4()")
+  user: AppUser
+  total: Float!
+  fecha: Timestamp! @default(expr: "request.time")
+}
+
+type SaleItem @table {
+  id: UUID! @default(expr: "uuidV4()")
+  sale: Sale!
+  product: Product!
+  nombreProducto: String!
+  codigoProducto: String!
+  cantidad: Int!
+  precio: Float!
+}

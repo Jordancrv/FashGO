@@ -1,0 +1,51 @@
+mutation InsertProduct(
+  $nombre: String!
+  $parteGeneral: String!
+  $tipo: String!
+  $diseno: String
+  $tipoManga: String
+  $tipoCuello: String
+  $color: String!
+  $talla: String!
+  $precio: Float!
+  $stock: Int!
+  $stockReferencia: Int!
+  $ubicacion: String!
+  $codigoProducto: String!
+  $qrCode: String!
+  $stockMinimo: Int!
+) @auth(level: PUBLIC) {
+  product_insert(
+    data: {
+      nombre: $nombre
+      parteGeneral: $parteGeneral
+      tipo: $tipo
+      diseno: $diseno
+      tipoManga: $tipoManga
+      tipoCuello: $tipoCuello
+      color: $color
+      talla: $talla
+      precio: $precio
+      stock: $stock
+      stockReferencia: $stockReferencia
+      ubicacion: $ubicacion
+      codigoProducto: $codigoProducto
+      qrCode: $qrCode
+      stockMinimo: $stockMinimo
+    }
+  )
+}
+
+mutation InsertAppUser(
+  $nombre: String!
+  $password: String!
+  $rol: String!
+) @auth(level: PUBLIC) {
+  appUser_insert(
+    data: {
+      nombre: $nombre
+      password: $password
+      rol: $rol
+    }
+  )
+}
