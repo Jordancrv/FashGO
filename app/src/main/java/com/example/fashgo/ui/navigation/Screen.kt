@@ -1,30 +1,9 @@
 package com.example.fashgo.ui.navigation
-
-sealed class Screen(val route: String) {
-    object Login : Screen("login")
-    object Home : Screen("home")
-    object ProductList : Screen("products")
-    object ProductDetail : Screen("product_detail/{productId}") {
-        fun createRoute(productId: Long) = "product_detail/$productId"
-    }
-    object ProductForm : Screen("product_form?productId={productId}") {
-        fun createRoute(productId: Long? = null) =
-            if (productId != null) "product_form?productId=$productId" else "product_form"
-    }
-    object NewSale : Screen("new_sale")
-    object SaleHistory : Screen("sale_history")
-    object SaleDetail : Screen("sale_detail/{saleId}") {
-        fun createRoute(saleId: Long) = "sale_detail/$saleId"
-    }
-    object Inventory : Screen("inventory")
-    object Reports : Screen("reports")
-    object AbcVentas : Screen("abc_ventas")
-    object Settings : Screen("settings")
-    object LowStock : Screen("low_stock")
-    object SalesChannels : Screen("sales_channels")
-    object MateriaPrima : Screen("materia_prima")
-    object ProductosDerivados : Screen("productos_derivados")
-    object ChannelDetail : Screen("channel_detail/{channelName}") {
-        fun createRoute(channelName: String) = "channel_detail/$channelName"
-    }
+sealed class Screen(val route:String){
+ data object Login:Screen("login"); data object Home:Screen("home"); data object ProductList:Screen("products")
+ data object ProductDetail:Screen("product_detail/{productId}"){fun createRoute(id:String)="product_detail/$id"}
+ data object ProductForm:Screen("product_form?productId={productId}"){fun createRoute(id:String?=null)=if(id==null)"product_form" else "product_form?productId=$id"}
+ data object NewSale:Screen("new_sale"); data object SaleHistory:Screen("sale_history"); data object SaleDetail:Screen("sale_detail/{saleId}"){fun createRoute(id:String)="sale_detail/$id"}
+ data object Inventory:Screen("inventory"); data object Reports:Screen("reports"); data object AbcVentas:Screen("abc_ventas"); data object Settings:Screen("settings"); data object LowStock:Screen("low_stock"); data object SalesChannels:Screen("sales_channels"); data object MateriaPrima:Screen("materia_prima"); data object ProductosDerivados:Screen("productos_derivados"); data object ChannelDetail:Screen("channel_detail/{channelName}"){fun createRoute(v:String)="channel_detail/${android.net.Uri.encode(v)}"}
+ data object Profile:Screen("profile");data object Audit:Screen("audit")
 }

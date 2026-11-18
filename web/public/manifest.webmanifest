@@ -1,0 +1,10 @@
+{
+  "name": "FashGO Operaciones",
+  "short_name": "FashGO",
+  "description": "Inventario, ventas y operación de FashGO",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f2f0e9",
+  "theme_color": "#171912",
+  "icons": [{"src":"/favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.fashgo.data.entity.Producto
+import com.example.fashgo.data.remote.model.Producto
 import com.example.fashgo.ui.theme.*
 import com.example.fashgo.util.FormatUtils
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -460,59 +460,17 @@ fun CheckoutDialog(
                     }
                 }
 
-                // Selección de Canal
-                var expanded by remember { mutableStateOf(false) }
-                val canales = listOf("Ventas Presenciales", "Falabella", "Mercado Libre", "Página Web")
+                OutlinedTextField(
+                    value = "Venta física",
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text("Tipo de venta") },
+                    leadingIcon = { Icon(Icons.Filled.Storefront, null, tint = MintGreen) },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = MintGreen)
+                )
 
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = !expanded }
-                ) {
-                    OutlinedTextField(
-                        value = canal,
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text("Canal de Venta") },
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                        modifier = Modifier.fillMaxWidth().menuAnchor(),
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = MintGreen)
-                    )
-                    ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        canales.forEach { option ->
-                            DropdownMenuItem(
-                                text = { Text(option) },
-                                onClick = {
-                                    onCanalChange(option)
-                                    expanded = false
-                                }
-                            )
-                        }
-                    }
-                }
-
-                if (canal != "Ventas Presenciales") {
-                    OutlinedTextField(
-                        value = cliente,
-                        onValueChange = onClienteChange,
-                        label = { Text("Cliente") },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = MintGreen)
-                    )
-                    OutlinedTextField(
-                        value = direccion,
-                        onValueChange = onDireccionChange,
-                        label = { Text("Dirección de Envío") },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = MintGreen)
-                    )
-                } else {
-                    // Monto recibido solo para presencial (asumiendo que en marketplace ya está pagado)
-                    OutlinedTextField(
+                OutlinedTextField(
                         value = montoRecibido,
                         onValueChange = onMontoChange,
                         label = { Text("Monto recibido") },
@@ -528,7 +486,6 @@ fun CheckoutDialog(
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
                     )
-                }
 
                 // Cambio
                 if (cambio > 0) {
@@ -582,3 +539,4 @@ fun CheckoutDialog(
         }
     )
 }
+

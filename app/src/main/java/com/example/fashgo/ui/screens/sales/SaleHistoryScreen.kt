@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.fashgo.data.entity.Venta
+import com.example.fashgo.data.remote.model.Venta
 import com.example.fashgo.ui.theme.*
 import com.example.fashgo.util.FormatUtils
 import java.text.SimpleDateFormat
@@ -28,7 +28,7 @@ import java.util.*
 fun SaleHistoryScreen(
     viewModel: SaleViewModel = viewModel(),
     onBack: () -> Unit,
-    onSaleDetail: (Long) -> Unit
+    onSaleDetail: (String) -> Unit
 ) {
     val allVentas by viewModel.allVentas.collectAsState()
 
@@ -161,3 +161,4 @@ fun SaleCard(venta: Venta, onClick: () -> Unit) {
         }
     }
 }
+

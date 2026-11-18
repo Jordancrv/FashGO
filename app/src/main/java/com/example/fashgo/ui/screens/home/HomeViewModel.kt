@@ -1,51 +1,18 @@
 package com.example.fashgo.ui.screens.home
-
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fashgo.data.database.FashGoDatabase
-import com.example.fashgo.data.repository.ProductoRepository
-import com.example.fashgo.data.repository.VentaRepository
-import kotlinx.coroutines.flow.Flow
+import com.example.fashgo.data.remote.RemoteProductRepository
+import com.example.fashgo.data.remote.RemoteSalesRepository
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.Calendar
-
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
-    private val db = FashGoDatabase.getDatabase(application)
-    private val productoRepository = ProductoRepository(db.productoDao())
-    private val ventaRepository = VentaRepository(db.ventaDao())
-
-    private fun getStartOfDay(): Long {
-        val cal = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-        return cal.timeInMillis
-    }
-
-    private fun getEndOfDay(): Long {
-        val cal = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 23)
-            set(Calendar.MINUTE, 59)
-            set(Calendar.SECOND, 59)
-            set(Calendar.MILLISECOND, 999)
-        }
-        return cal.timeInMillis
-    }
-
-    val totalVentasDelDia: Flow<Double?> = ventaRepository.getTotalVentasDelDia(getStartOfDay(), getEndOfDay())
-    val countVentasDelDia: Flow<Int> = ventaRepository.getCountVentasDelDia(getStartOfDay(), getEndOfDay())
-    val lowStockCount: Flow<Int> = productoRepository.getLowStockCount()
-    val totalProducts: Flow<Int> = productoRepository.getTotalCount()
-    val totalUnits: Flow<Int> = productoRepository.getTotalUnits()
-
-    fun resolveProductIdByQrCode(qrCode: String, onResult: (Long?) -> Unit) {
-        viewModelScope.launch {
-            val product = productoRepository.getByQrCode(qrCode)
-                ?: qrCode.substringAfter("FASHGO-", "").toLongOrNull()?.let { productoRepository.getById(it) }
-            onResult(product?.id)
-        }
-    }
+class HomeViewModel(application:Application):AndroidViewModel(application){
+ private val start=Calendar.getInstance().apply{set(Calendar.HOUR_OF_DAY,0);set(Calendar.MINUTE,0);set(Calendar.SECOND,0);set(Calendar.MILLISECOND,0)}.timeInMillis
+ val totalVentasDelDia=RemoteSalesRepository.sales.map{it.filter{v->v.fecha>=start&&v.estadoContable=="confirmada"}.sumOf{v->v.total}}
+ val countVentasDelDia=RemoteSalesRepository.sales.map{it.count{v->v.fecha>=start&&v.estadoContable=="confirmada"}}
+ val lowStockCount=combine(RemoteProductRepository.products,RemoteSalesRepository.sales,RemoteSalesRepository.details){products,sales,details->val ids=sales.filter{it.estadoContable=="confirmada"&&it.fecha>=System.currentTimeMillis()-30L*86_400_000}.map{it.id}.toSet();val moved=details.filter{it.ventaId in ids}.map{it.productoId}.toSet();products.count{it.stock<=it.stockMinimo||it.id !in moved}}
+ val totalProducts=RemoteProductRepository.products.map{it.size};val totalUnits=RemoteProductRepository.products.map{it.sumOf{p->p.stock}}
+ init{viewModelScope.launch{runCatching{RemoteProductRepository.refresh();RemoteSalesRepository.refresh()}}}
+ fun resolveProductIdByQrCode(code:String,onResult:(String?)->Unit){onResult(RemoteProductRepository.byCode(code)?.id)}
 }

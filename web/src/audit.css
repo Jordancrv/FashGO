@@ -1,0 +1,15 @@
+.audit-tools,.audit-pages {display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.audit-tools label {display:flex;align-items:center;gap:10px}
+.audit button,.audit select {background:var(--paper);border:1px solid var(--line);padding:8px 14px;min-height:44px;color:var(--ink);font:inherit}
+.audit button:disabled {opacity:.45;cursor:default}
+.audit button:enabled:hover {background:var(--acid)}
+.audit-list {margin:16px 0;padding:0;border-top:2px solid var(--ink);list-style:none}
+.audit-list li {display:grid;grid-template-columns:9rem minmax(0,1fr) minmax(7rem,18%);gap:16px;padding:14px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.audit-list p {margin:5px 0 0}
+.audit-list time,.audit-pages span {font:12px 'IBM Plex Mono',monospace}
+.audit-user {font-size:14px}
+@media(max-width:950px) {
+  .audit-list li {grid-template-columns:1fr auto;gap:6px 16px}
+  .audit-list li div {grid-column:1/-1;grid-row:2}
+  .audit-user {text-align:right}
+}

@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.fashgo.data.entity.Producto
+import com.example.fashgo.data.remote.model.Producto
 import com.example.fashgo.ui.theme.*
 import com.example.fashgo.util.FormatUtils
 
@@ -32,8 +32,8 @@ import com.example.fashgo.util.FormatUtils
 @Composable
 fun ProductListScreen(
     viewModel: ProductViewModel = viewModel(),
-    onNavigateToDetail: (Long) -> Unit,
-    onNavigateToForm: (Long?) -> Unit,
+    onNavigateToDetail: (String) -> Unit,
+    onNavigateToForm: (String?) -> Unit,
     onBack: () -> Unit
 ) {
     val products by viewModel.products.collectAsState()
@@ -282,7 +282,7 @@ fun ProductListScreen(
 @Composable
 fun ProductCard(
     product: Producto,
-    abc: String,
+    abc: String?,
     onClick: () -> Unit
 ) {
     val isClassA = abc == "A"
@@ -381,7 +381,7 @@ fun ProductCard(
                     color = stockColor
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                Surface(
+                if (abc != null) Surface(
                     shape = CircleShape,
                     color = LightBlue,
                     modifier = Modifier.size(28.dp)
@@ -399,3 +399,4 @@ fun ProductCard(
         }
     }
 }
+

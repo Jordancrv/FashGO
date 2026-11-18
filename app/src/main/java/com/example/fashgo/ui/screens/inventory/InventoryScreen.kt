@@ -35,6 +35,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -63,7 +64,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.fashgo.data.entity.Producto
+import com.example.fashgo.data.remote.model.Producto
 import com.example.fashgo.ui.theme.BackgroundWhite
 import com.example.fashgo.ui.theme.ErrorRed
 import com.example.fashgo.ui.theme.LightBlue
@@ -87,7 +88,9 @@ import java.util.Locale
 @Composable
 fun InventoryScreen(
     viewModel: InventoryViewModel = viewModel(),
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onProductDetail: (String) -> Unit,
+    onAddProduct: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
@@ -119,9 +122,14 @@ fun InventoryScreen(
     }
 
     Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAddProduct, containerColor = MintGreen, contentColor = Color.White) {
+                Icon(Icons.Filled.AddCircle, contentDescription = "Agregar producto")
+            }
+        },
         topBar = {
             TopAppBar(
-                title = { Text("Inventario Centralizado", fontWeight = FontWeight.Bold) },
+                title = { Text("Productos e inventario", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Volver")
@@ -205,7 +213,8 @@ fun InventoryScreen(
                                 InventoryProductCard(
                                     product = product,
                                     abc = abcByProductId[product.id] ?: "-",
-                                    onClick = {
+                                    onDetail = { onProductDetail(product.id) },
+                                    onAddStock = {
                                         selectedProduct = product
                                         showIngresoDialog = true
                                     }
@@ -390,7 +399,8 @@ private fun SummaryCard(
 private fun InventoryProductCard(
     product: Producto,
     abc: String,
-    onClick: () -> Unit
+    onDetail: () -> Unit,
+    onAddStock: () -> Unit
 ) {
     val cardBg = when {
         product.stock > 9 -> Color(0xFFE8F5E9)
@@ -408,7 +418,7 @@ private fun InventoryProductCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = cardBg),
-        onClick = onClick
+        onClick = onDetail
     ) {
         Column(
             modifier = Modifier
@@ -442,6 +452,10 @@ private fun InventoryProductCard(
             ) {
                 Text("${product.parteGeneral} · ${product.ubicacion}", color = TextSecondary, fontSize = 12.sp)
                 Text("Stock: ${product.stock}", color = stockColor, fontWeight = FontWeight.Bold)
+            }
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                TextButton(onClick = onDetail) { Text("Ver y editar", color = PrimaryBlue) }
+                TextButton(onClick = onAddStock) { Text("Agregar cantidad", color = MintGreenDark) }
             }
         }
     }
@@ -493,3 +507,4 @@ private fun launchScanner(scanLauncher: androidx.activity.result.ActivityResultL
     options.setOrientationLocked(false)
     scanLauncher.launch(options)
 }
+

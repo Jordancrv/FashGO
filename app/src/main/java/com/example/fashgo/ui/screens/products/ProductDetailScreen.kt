@@ -28,11 +28,11 @@ import com.example.fashgo.util.QrGenerator
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailScreen(
-    productId: Long,
+    productId: String,
     viewModel: ProductViewModel = viewModel(),
     onBack: () -> Unit,
-    onEdit: (Long) -> Unit,
-    onAddToSale: (Long) -> Unit
+    onEdit: (String) -> Unit,
+    onAddToSale: (String) -> Unit
 ) {
     var showDeleteDialog by remember { mutableStateOf(false) }
 
@@ -401,3 +401,4 @@ fun ProductDetailScreen(
         )
     }
 }
+

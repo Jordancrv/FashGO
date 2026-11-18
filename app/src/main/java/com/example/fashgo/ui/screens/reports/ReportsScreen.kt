@@ -175,49 +175,6 @@ private fun ReportsSummaryTab(
             }
         }
 
-        item {
-            Spacer(modifier = Modifier.height(16.dp))
-            Text("Top Canales de Venta", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = TextPrimary)
-            Text("Últimos 30 días", fontSize = 12.sp, color = TextSecondary)
-        }
-
-        if (uiState.topChannels.isEmpty()) {
-            item { EmptyCard("Sin datos disponibles") }
-        } else {
-            itemsIndexed(uiState.topChannels) { _, channel ->
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(14.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White)
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(14.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        Surface(
-                            shape = CircleShape,
-                            color = PrimaryBlue.copy(alpha = 0.1f),
-                            modifier = Modifier.size(40.dp)
-                        ) {
-                            Box(contentAlignment = Alignment.Center) {
-                                Icon(Icons.Outlined.Storefront, null, tint = PrimaryBlue, modifier = Modifier.size(20.dp))
-                            }
-                        }
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(channel.canal, fontWeight = FontWeight.Medium, fontSize = 14.sp, color = TextPrimary)
-                            Text("${channel.cantidadTransacciones} transacciones", fontSize = 12.sp, color = TextSecondary)
-                        }
-                        Text(
-                            FormatUtils.formatPrice(channel.totalVendido),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp,
-                            color = MintGreen
-                        )
-                    }
-                }
-            }
-        }
     }
 }
 

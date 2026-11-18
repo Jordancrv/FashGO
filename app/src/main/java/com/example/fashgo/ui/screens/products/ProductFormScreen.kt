@@ -67,11 +67,11 @@ import com.example.fashgo.ui.theme.TextSecondary
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductFormScreen(
-    productId: Long? = null,
+    productId: String? = null,
     viewModel: ProductViewModel = viewModel(),
     onBack: () -> Unit
 ) {
-    val isEditing = productId != null && productId > 0
+    val isEditing = productId != null
     val uiState by viewModel.uiState.collectAsState()
 
     var parteGeneral by remember { mutableStateOf("Parte Superior") }
@@ -346,3 +346,4 @@ private fun FormTextField(
         )
     )
 }
+

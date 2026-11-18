@@ -24,15 +24,18 @@ import com.example.fashgo.ui.theme.*
 fun LowStockScreen(
     viewModel: ProductViewModel = viewModel(),
     onBack: () -> Unit,
-    onProductDetail: (Long) -> Unit
+    onProductDetail: (String) -> Unit
 ) {
     val lowStockProducts by viewModel.lowStockProducts.collectAsState()
+    val noMovementProducts by viewModel.noMovementProducts.collectAsState()
     val abcByProductId by viewModel.abcByProductId.collectAsState()
+    var selectedTab by remember { mutableIntStateOf(0) }
+    val currentProducts=if(selectedTab==0)lowStockProducts else noMovementProducts
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Stock Bajo", fontWeight = FontWeight.Bold) },
+                title = { Text("Alertas", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Volver")
@@ -46,11 +49,13 @@ fun LowStockScreen(
         },
         containerColor = BackgroundWhite
     ) { padding ->
-        if (lowStockProducts.isEmpty()) {
+        Column(Modifier.fillMaxSize().padding(padding)) {
+        TabRow(selectedTabIndex=selectedTab){Tab(selected=selectedTab==0,onClick={selectedTab=0},text={Text("Stock mínimo (${lowStockProducts.size})")});Tab(selected=selectedTab==1,onClick={selectedTab=1},text={Text("Sin movimiento (${noMovementProducts.size})")})}
+        if (currentProducts.isEmpty()) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding),
+                    ,
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -61,14 +66,14 @@ fun LowStockScreen(
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Text("¡Todo en orden!", fontWeight = FontWeight.SemiBold, color = TextPrimary)
-                    Text("No hay productos con stock bajo", color = TextSecondary, fontSize = 13.sp)
+                    Text(if(selectedTab==0)"No hay productos con stock bajo" else "Todos tuvieron ventas en los últimos 30 días", color = TextSecondary, fontSize = 13.sp)
                 }
             }
         } else {
             LazyColumn(
                 contentPadding = PaddingValues(
                     start = 16.dp, end = 16.dp,
-                    top = padding.calculateTopPadding() + 8.dp,
+                    top = 8.dp,
                     bottom = 16.dp
                 ),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -86,7 +91,7 @@ fun LowStockScreen(
                         ) {
                             Icon(Icons.Filled.Warning, null, tint = WarningOrange, modifier = Modifier.size(22.dp))
                             Text(
-                                "${lowStockProducts.size} producto(s) necesitan atención",
+                                if(selectedTab==0)"${currentProducts.size} producto(s) necesitan reposición" else "${currentProducts.size} producto(s) sin ventas en 30 días",
                                 fontWeight = FontWeight.Medium,
                                 color = WarningOrange,
                                 fontSize = 14.sp
@@ -95,7 +100,7 @@ fun LowStockScreen(
                     }
                 }
 
-                items(lowStockProducts, key = { it.id }) { product ->
+                items(currentProducts, key = { it.id }) { product ->
                     ProductCard(
                         product = product,
                         abc = abcByProductId[product.id] ?: "C",
@@ -104,5 +109,7 @@ fun LowStockScreen(
                 }
             }
         }
+        }
     }
 }
+

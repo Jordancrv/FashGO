@@ -1,0 +1,42 @@
+.product-link {display:block; background:none; border:0; padding:4px 0; min-height:44px; text-align:left; font-weight:700; color:var(--ink)}
+.product-link:hover {text-decoration:underline}
+.product-link small {display:block; color:var(--muted); margin-top:5px}
+.inventory-panel {position:fixed; inset:0 0 0 auto; margin:0; width:min(520px,100%); height:100dvh; max-height:none; max-width:100%; padding:24px; border:0; border-left:1px solid var(--ink); color:var(--ink); background:var(--paper); overflow-y:auto}
+.inventory-panel::backdrop {background:rgb(25 26 23 / 45%)}
+.inventory-panel header,.product-total,.panel-actions {display:flex; justify-content:space-between; align-items:center; gap:10px}
+.inventory-panel h2 {font-size:clamp(28px,4vw,42px); letter-spacing:-.04em; overflow-wrap:anywhere}
+.inventory-panel button {min-height:44px; padding:8px 12px; color:var(--ink); border:1px solid var(--ink); background:transparent}
+.inventory-panel .action {background:var(--acid); width:auto}
+.inventory-panel fieldset {padding:0; margin:0; min-width:0; border:0}
+.product-fields,.inventory-panel dl {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+.inventory-panel label {display:grid; gap:6px; margin-bottom:10px; font-size:14px}
+.inventory-panel input,.inventory-panel select {font:inherit; width:100%; min-width:0; min-height:44px; background:white; border:1px solid var(--line); padding:8px}
+.inventory-panel input:read-only {background:#e9e7df}
+.product-total {padding:16px 0; border-block:1px solid var(--ink); font-size:22px}
+.inventory-panel dt {font:11px 'IBM Plex Mono',monospace; color:var(--muted)}
+.inventory-panel dd {margin:4px 0; overflow-wrap:anywhere}
+.panel-actions {flex-wrap:wrap; justify-content:flex-start; margin:18px 0}
+@media (min-width:701px) and (max-width:1200px) {
+  .shell {grid-template-columns:74px minmax(0,1fr)}
+  .sidebar {position:sticky; top:0; height:100dvh; overflow-y:auto; padding:12px 7px}
+  .sidebar .wordmark {font-size:17px; padding:10px 0 20px; text-align:center}
+  .nav {display:grid; overflow:visible}
+  .nav a {justify-content:center; min-height:44px}
+  .nav a span,.profile-mini {display:none}
+  .sidebar .logout {display:block; margin-top:auto; text-align:center; font-size:12px}
+  .content {padding:25px}
+}
+@media (max-width:700px) {
+  .sidebar {display:grid; grid-template-columns:1fr auto; align-items:center}
+  .sidebar .wordmark {padding:0}
+  .sidebar .logout {display:block; grid-area:1/2}
+  .nav {grid-column:1/-1; grid-row:2}
+  .nav a {min-height:44px}
+  .inventory-table table,.inventory-table tbody {display:block}
+  .inventory-table thead {position:absolute; clip-path:inset(50%); width:1px; height:1px; overflow:hidden}
+  .inventory-table tr {display:grid; grid-template-columns:1fr auto; align-items:center; padding:9px 0; border-bottom:1px solid var(--line)}
+  .inventory-table td {border:0; padding:3px 8px}
+  .inventory-table td:nth-child(4) {grid-column:2; grid-row:1; justify-self:end}
+  .inventory-table td:nth-child(3),.inventory-table td:nth-child(6) {text-align:right}
+  .inventory-panel {padding:18px}
+}

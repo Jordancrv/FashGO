@@ -1,127 +1,26 @@
 package com.example.fashgo.ui.screens.inventory
-
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fashgo.data.database.FashGoDatabase
-import com.example.fashgo.data.entity.Ingreso
-import com.example.fashgo.data.entity.Producto
-import com.example.fashgo.data.repository.IngresoRepository
-import com.example.fashgo.data.repository.ProductoRepository
-import com.example.fashgo.data.repository.VentaRepository
-import com.example.fashgo.util.InventoryAnalytics
+import com.example.fashgo.data.cloud.SupabaseClient
+import com.example.fashgo.data.offline.OfflineStore
+import com.example.fashgo.data.remote.RemoteProductRepository
+import com.example.fashgo.data.remote.RemoteSalesRepository
+import com.example.fashgo.data.remote.model.Ingreso
+import com.example.fashgo.data.remote.model.Producto
 import com.example.fashgo.util.InventorySummary
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
-
-data class InventoryUiState(
-    val error: String? = null,
-    val success: String? = null,
-    val isLoading: Boolean = false
-)
-
-class InventoryViewModel(application: Application) : AndroidViewModel(application) {
-    private val db = FashGoDatabase.getDatabase(application)
-    private val productoRepo = ProductoRepository(db.productoDao())
-    private val ingresoRepo = IngresoRepository(db.ingresoDao())
-    private val ventaRepo = VentaRepository(db.ventaDao())
-
-    private val _uiState = MutableStateFlow(InventoryUiState())
-    val uiState: StateFlow<InventoryUiState> = _uiState
-
-    private val _searchQuery = MutableStateFlow("")
-    val searchQuery: StateFlow<String> = _searchQuery
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val products: StateFlow<List<Producto>> = _searchQuery
-        .flatMapLatest { query ->
-            if (query.isBlank()) productoRepo.getAll()
-            else {
-                productoRepo.getAll().map { list ->
-                    val terms = query.lowercase().split(" ").filter { it.isNotBlank() }
-                    list.filter { prod ->
-                        val text = "${prod.nombre} ${prod.tipo} ${prod.color} ${prod.talla} ${prod.codigoProducto}".lowercase()
-                        terms.all { text.contains(it) }
-                    }
-                }
-            }
-        }
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-
-    val ingresos: StateFlow<List<Ingreso>> = ingresoRepo.getAll()
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-
-    val summary: StateFlow<InventorySummary> = products
-        .map(InventoryAnalytics::buildSummary)
-        .stateIn(viewModelScope, SharingStarted.Lazily, InventorySummary())
-
-    private val fifteenDaysAgo = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(15)
-    private val salesStats = ventaRepo.getProductSalesStats(fifteenDaysAgo, System.currentTimeMillis())
-
-    val abcByProductId: StateFlow<Map<Long, String>> = combine(products, salesStats) { productList, stats ->
-        InventoryAnalytics.classifyAbcBySales(productList, stats)
-    }
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyMap())
-
-    fun onSearchChange(query: String) {
-        _searchQuery.value = query
-    }
-
-    fun registrarIngreso(
-        productoId: Long,
-        nombreProducto: String,
-        codigoProducto: String,
-        cantidad: String,
-        onSuccess: () -> Unit
-    ) {
-        val cantidadVal = cantidad.toIntOrNull()
-        if (cantidadVal == null || cantidadVal <= 0) {
-            _uiState.value = _uiState.value.copy(error = "Ingrese una cantidad valida")
-            return
-        }
-
-        viewModelScope.launch {
-            try {
-                ingresoRepo.insert(
-                    Ingreso(
-                        productoId = productoId,
-                        nombreProducto = nombreProducto,
-                        codigoProducto = codigoProducto,
-                        cantidad = cantidadVal
-                    )
-                )
-                productoRepo.incrementStock(productoId, cantidadVal)
-                _uiState.value = _uiState.value.copy(success = "Ingreso registrado: +$cantidadVal unidades")
-                onSuccess()
-            } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(error = "Error: ${e.message}")
-            }
-        }
-    }
-
-    fun clearMessages() {
-        _uiState.value = _uiState.value.copy(error = null, success = null)
-    }
-
-    fun getProductById(id: Long, onResult: (Producto?) -> Unit) {
-        viewModelScope.launch {
-            onResult(productoRepo.getById(id))
-        }
-    }
-
-    fun getProductByQrCode(qrCode: String, onResult: (Producto?) -> Unit) {
-        viewModelScope.launch {
-            val product = productoRepo.getByQrCode(qrCode)
-                ?: qrCode.substringAfter("FASHGO-", "").toLongOrNull()?.let { productoRepo.getById(it) }
-            onResult(product)
-        }
-    }
+import org.json.JSONObject
+import java.util.UUID
+data class InventoryUiState(val error:String?=null,val success:String?=null,val isLoading:Boolean=false)
+class InventoryViewModel(application:Application):AndroidViewModel(application){
+ private val _ui=MutableStateFlow(InventoryUiState());val uiState=_ui.asStateFlow();private val _query=MutableStateFlow("");val searchQuery=_query.asStateFlow();private val _ingresos=MutableStateFlow<List<Ingreso>>(emptyList());val ingresos=_ingresos.asStateFlow()
+ val products=combine(RemoteProductRepository.products,_query){list,q->if(q.isBlank())list else list.filter{"${it.nombre} ${it.codigoProducto} ${it.tipo} ${it.color} ${it.talla}".contains(q,true)}}.stateIn(viewModelScope,SharingStarted.WhileSubscribed(5000),emptyList())
+ val summary=products.map{InventorySummary(it.size,it.sumOf{p->p.stock},it.sumOf{p->p.stock*p.precio},it.count{p->p.semaforoEstado=="ROJO"},it.count{p->p.semaforoEstado=="AMARILLO"},it.count{p->p.semaforoEstado=="VERDE"})}.stateIn(viewModelScope,SharingStarted.WhileSubscribed(5000),InventorySummary())
+ val abcByProductId=combine(RemoteProductRepository.products,RemoteSalesRepository.sales,RemoteSalesRepository.details){all,sales,details->val valid=sales.filter{it.estadoContable=="confirmada"&&it.fecha>=System.currentTimeMillis()-15L*86_400_000}.map{it.id}.toSet();val sold=details.filter{it.ventaId in valid}.groupBy{it.productoId}.mapValues{it.value.sumOf{d->d.cantidad}};val ordered=all.filter{(sold[it.id]?:0)>0}.sortedByDescending{sold[it.id]?:0};val top=ordered.take(kotlin.math.ceil(ordered.size/3.0).toInt()).map{it.id}.toSet();all.associate{it.id to if(it.id in top)"A" else if((sold[it.id]?:0)>0)"B" else "C"}}.stateIn(viewModelScope,SharingStarted.WhileSubscribed(5000),emptyMap())
+ init{refresh()};private fun refresh()=viewModelScope.launch{try{RemoteProductRepository.refresh();RemoteSalesRepository.refresh();val rows=SupabaseClient.fetchAll("/rest/v1/movimientos_inventario?select=id,producto_id,cantidad,fecha,productos(nombre,codigo)&tipo=eq.entrada&order=fecha.desc");_ingresos.value=(0 until rows.length()).map{i->rows.getJSONObject(i).let{r->val p=r.getJSONObject("productos");Ingreso(r.getString("id"),r.getString("producto_id"),p.getString("nombre"),p.getString("codigo"),r.getInt("cantidad"),java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX").parse(r.getString("fecha").replace(Regex("\\.\\d+"),""))?.time?:0)}}}catch(e:Exception){_ui.value=_ui.value.copy(error=e.message)}}
+ fun onSearchChange(v:String){_query.value=v}
+ fun registrarIngreso(productoId:String,nombreProducto:String,codigoProducto:String,cantidad:String,onSuccess:()->Unit){val q=cantidad.toIntOrNull();val p=RemoteProductRepository.byId(productoId);val location=p?.existencias?.firstOrNull();if(q==null||q<=0||location==null){_ui.value=_ui.value.copy(error="Cantidad o ubicación inválida");return};viewModelScope.launch{val body=JSONObject().put("p_operacion",UUID.randomUUID().toString()).put("p_producto",productoId).put("p_ubicacion",location.ubicacionId).put("p_cantidad",q);try{_ui.value=_ui.value.copy(isLoading=true);SupabaseClient.api("/rest/v1/rpc/registrar_ingreso",body);refresh();_ui.value=_ui.value.copy(success="Ingreso registrado");onSuccess()}catch(e:Exception){if(SupabaseClient.isConnectivityFailure(e)){OfflineStore.enqueue("/rest/v1/rpc/registrar_ingreso",body);_ui.value=_ui.value.copy(success="Ingreso guardado sin conexión; se sincronizará automáticamente");onSuccess()}else _ui.value=_ui.value.copy(error=e.message)}finally{_ui.value=_ui.value.copy(isLoading=false)}}}
+ fun clearMessages(){_ui.value=InventoryUiState()};fun getProductById(id:String,onResult:(Producto?)->Unit){onResult(RemoteProductRepository.byId(id))};fun getProductByQrCode(code:String,onResult:(Producto?)->Unit){onResult(RemoteProductRepository.byCode(code))}
 }

@@ -46,7 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.fashgo.data.entity.ProductoDerivado
+import com.example.fashgo.data.remote.model.ProductoDerivado
 import com.example.fashgo.ui.theme.BackgroundWhite
 import com.example.fashgo.ui.theme.ErrorRed
 import com.example.fashgo.ui.theme.MintGreen

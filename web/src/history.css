@@ -1,0 +1,12 @@
+.sales-history button {min-height:44px}
+.history-row {width:100%; display:grid; grid-template-columns:1.1fr 1fr .7fr .7fr; align-items:center; gap:12px; padding:14px 8px; text-align:left; border:0; border-bottom:1px solid var(--line); background:transparent; color:var(--ink); overflow-wrap:anywhere}
+.history-row:hover,.history-row:focus-visible {background:var(--paper)}
+.history-row small {display:block; font:12px 'IBM Plex Mono',monospace; margin-top:5px}
+.history-row strong {text-align:right}
+.history-detail article {padding:16px 0; border-bottom:1px solid var(--line); overflow-wrap:anywhere}
+.history-detail form {margin-top:12px}
+@media(max-width:800px) {
+  .history-row {grid-template-columns:minmax(0,1fr) auto}
+  .history-row strong {grid-column:2; grid-row:1}
+  .history-row span:nth-child(3) {text-align:right}
+}

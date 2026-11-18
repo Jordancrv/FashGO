@@ -1,0 +1,23 @@
+begin;
+alter table public.movimientos_inventario drop constraint if exists movimientos_inventario_tipo_check;
+alter table public.movimientos_inventario add constraint movimientos_inventario_tipo_check check(tipo in('saldo_inicial','entrada','salida','ajuste','traslado','anulacion','devolucion'));
+create table public.devoluciones(id uuid primary key,venta_id uuid not null references public.ventas(id),fecha timestamptz not null default now(),responsable_id uuid references public.usuarios(id),motivo text not null);
+create table public.detalle_devolucion(id uuid primary key default gen_random_uuid(),devolucion_id uuid not null references public.devoluciones(id),detalle_venta_id uuid not null references public.detalle_venta(id),cantidad integer not null check(cantidad>0));
+alter table public.devoluciones enable row level security;alter table public.detalle_devolucion enable row level security;
+grant select on public.devoluciones,public.detalle_devolucion to authenticated;
+create policy personal_lee_devoluciones on public.devoluciones for select to authenticated using(public.rol_actual() is not null);
+create policy personal_lee_detalle_devolucion on public.detalle_devolucion for select to authenticated using(public.rol_actual() is not null);
+create or replace function public.registrar_devolucion(p_operacion uuid,p_venta uuid,p_detalle uuid,p_cantidad integer,p_motivo text) returns uuid language plpgsql security definer set search_path='' as $$
+declare d public.detalle_venta%rowtype;v_devuelto integer;
+begin perform private.autorizar(false);if p_cantidad<=0 or btrim(coalesce(p_motivo,''))='' then raise exception 'Cantidad o motivo inválido';end if;
+if exists(select 1 from public.devoluciones where id=p_operacion) then return p_operacion;end if;
+select * into d from public.detalle_venta where id=p_detalle and venta_id=p_venta for update;if not found then raise exception 'Detalle de venta no encontrado';end if;
+select coalesce(sum(dd.cantidad),0) into v_devuelto from public.detalle_devolucion dd join public.devoluciones dv on dv.id=dd.devolucion_id where dd.detalle_venta_id=p_detalle;
+if v_devuelto+p_cantidad>d.cantidad then raise exception 'La devolución supera la cantidad vendida';end if;
+insert into public.devoluciones(id,venta_id,responsable_id,motivo) values(p_operacion,p_venta,auth.uid(),btrim(p_motivo));
+insert into public.detalle_devolucion(devolucion_id,detalle_venta_id,cantidad) values(p_operacion,p_detalle,p_cantidad);
+update public.existencias set cantidad=cantidad+p_cantidad where producto_id=d.producto_id and ubicacion_id=d.ubicacion_id;
+insert into public.movimientos_inventario(producto_id,ubicacion_id,venta_id,tipo,cantidad,responsable_id,motivo) values(d.producto_id,d.ubicacion_id,p_venta,'devolucion',p_cantidad,auth.uid(),'Devolución: '||btrim(p_motivo));
+return p_operacion;end$$;
+revoke all on function public.registrar_devolucion(uuid,uuid,uuid,integer,text) from public,anon;grant execute on function public.registrar_devolucion(uuid,uuid,uuid,integer,text) to authenticated;
+commit;

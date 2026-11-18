@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fashgo.ui.theme.*
 import com.example.fashgo.util.FormatUtils
+import com.example.fashgo.data.offline.OfflineStore
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 
@@ -37,24 +38,28 @@ fun HomeScreen(
     onNavigateToProducts: () -> Unit,
     onNavigateToNewSale: () -> Unit,
     onNavigateToSaleHistory: () -> Unit,
-    onNavigateToInventory: () -> Unit,
     onNavigateToReports: () -> Unit,
     onNavigateToAbcVentas: () -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToLowStock: () -> Unit,
-    onNavigateToSalesChannels: () -> Unit,
     onNavigateToMateriaPrima: () -> Unit,
     onNavigateToProductosDerivados: () -> Unit,
+    onNavigateToProfile: () -> Unit,
+    onNavigateToAudit: () -> Unit,
     onLogout: () -> Unit,
-    onNavigateToProductDetail: (Long) -> Unit
+    onNavigateToProductDetail: (String) -> Unit
 ) {
     val totalVentas by viewModel.totalVentasDelDia.collectAsState(initial = 0.0)
     val countVentas by viewModel.countVentasDelDia.collectAsState(initial = 0)
     val lowStockCount by viewModel.lowStockCount.collectAsState(initial = 0)
     val totalProducts by viewModel.totalProducts.collectAsState(initial = 0)
     val totalUnits by viewModel.totalUnits.collectAsState(initial = 0)
+    val pendingSync by OfflineStore.pending.collectAsState()
 
-    val isAdmin = userRole == "DUENO" || userRole == "ADMIN"
+    // Supabase almacena los roles en minúsculas (dueno/vendedor). La app local
+    // utilizaba mayúsculas, por lo que el panel administrativo quedaba oculto.
+    val isAdmin = userRole.equals("dueno", ignoreCase = true) ||
+        userRole.equals("admin", ignoreCase = true)
 
     val scanLauncher = rememberLauncherForActivityResult(ScanContract()) { result ->
         if (result.contents != null) {
@@ -195,6 +200,26 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(28.dp))
 
+            if(pendingSync>0){Card(modifier=Modifier.fillMaxWidth().padding(horizontal=24.dp),colors=CardDefaults.cardColors(containerColor=WarningOrange.copy(alpha=.1f)),shape=RoundedCornerShape(14.dp)){Row(Modifier.padding(14.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(10.dp)){Icon(Icons.Filled.CloudOff,null,tint=WarningOrange);Text("$pendingSync operación(es) pendientes de sincronizar",color=WarningOrange,fontWeight=FontWeight.Medium)}};Spacer(Modifier.height(16.dp))}
+
+            Text(
+                text = "Dashboard",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = TextPrimary,
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 12.dp)
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                DashboardMetric("Productos", "$totalProducts", LightBlue, PrimaryBlue, Modifier.weight(1f))
+                DashboardMetric("Unidades", "$totalUnits", LightMint, MintGreenDark, Modifier.weight(1f))
+                DashboardMetric("Alertas", "$lowStockCount", WarningOrange.copy(alpha = 0.12f), WarningOrange, Modifier.weight(1f))
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
             // Acciones Principales
             Text(
                 text = "Acciones Rápidas",
@@ -219,7 +244,7 @@ fun HomeScreen(
                 )
                 ActionCard(
                     modifier = Modifier.weight(1f),
-                    title = "Productos",
+                    title = "Productos e inventario",
                     icon = Icons.Filled.Inventory2,
                     gradient = listOf(PrimaryBlue, Color(0xFF0047CC)),
                     onClick = onNavigateToProducts
@@ -261,13 +286,13 @@ fun HomeScreen(
                         }
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                "Alerta de Stock Bajo",
+                                "Alertas de inventario",
                                 fontWeight = FontWeight.SemiBold,
                                 color = TextPrimary,
                                 fontSize = 15.sp
                             )
                             Text(
-                                "$lowStockCount producto(s) necesitan reposición urgente",
+                                "$lowStockCount producto(s) requieren revisión",
                                 color = TextSecondary,
                                 fontSize = 13.sp
                             )
@@ -296,28 +321,27 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 WideMenuTile(
+                    title = "Mi perfil",
+                    subtitle = "Datos personales y rol de la cuenta",
+                    icon = Icons.Outlined.Person,
+                    iconColor = MintGreen,
+                    onClick = onNavigateToProfile
+                )
+                WideMenuTile(
                     title = "Historial de Ventas",
                     subtitle = "Revisa todas las ventas realizadas",
                     icon = Icons.Outlined.Receipt,
                     iconColor = MintGreen,
                     onClick = onNavigateToSaleHistory
                 )
-                WideMenuTile(
-                    title = "Canales de Venta",
-                    subtitle = "Marketplaces, Web y Tienda Física",
-                    icon = Icons.Outlined.Storefront,
-                    iconColor = Color(0xFF673AB7), // Un morado para diferenciar
-                    onClick = onNavigateToSalesChannels
-                )
-                WideMenuTile(
-                    title = "Inventario Centralizado",
-                    subtitle = "Control de stock y almacén",
-                    icon = Icons.Outlined.Inventory,
-                    iconColor = PrimaryBlue,
-                    onClick = onNavigateToInventory
-                )
-                
                 if (isAdmin) {
+                    WideMenuTile(
+                        title = "Movimientos",
+                        subtitle = "Auditoría de productos, materias e inventario",
+                        icon = Icons.Outlined.History,
+                        iconColor = Color(0xFF6A5ACD),
+                        onClick = onNavigateToAudit
+                    )
                     WideMenuTile(
                         title = "Materia Prima",
                         subtitle = "Control de insumos y materiales",
@@ -358,6 +382,16 @@ fun HomeScreen(
             }
 
             Spacer(modifier = Modifier.height(80.dp)) // Espacio para el FAB
+        }
+    }
+}
+
+@Composable
+private fun DashboardMetric(label:String,value:String,background:Color,content:Color,modifier:Modifier=Modifier){
+    Card(modifier=modifier,shape=RoundedCornerShape(16.dp),colors=CardDefaults.cardColors(containerColor=background)){
+        Column(modifier=Modifier.padding(horizontal=12.dp,vertical=14.dp)){
+            Text(value,fontSize=20.sp,fontWeight=FontWeight.Bold,color=content)
+            Text(label,fontSize=11.sp,color=TextSecondary,maxLines=1)
         }
     }
 }
@@ -442,3 +476,4 @@ fun WideMenuTile(
         }
     }
 }
+

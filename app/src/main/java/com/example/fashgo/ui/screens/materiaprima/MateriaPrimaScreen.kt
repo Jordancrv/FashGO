@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.fashgo.data.entity.MateriaPrima
+import com.example.fashgo.data.remote.model.MateriaPrima
 import com.example.fashgo.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)

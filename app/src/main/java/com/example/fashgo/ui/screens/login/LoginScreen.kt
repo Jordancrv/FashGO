@@ -35,7 +35,7 @@ import com.example.fashgo.ui.theme.*
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = viewModel(),
-    onLoginSuccess: (userName: String, userRole: String) -> Unit
+    onLoginSuccess: (com.example.fashgo.data.cloud.CloudUser) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var username by remember { mutableStateOf("") }
@@ -52,7 +52,7 @@ fun LoginScreen(
 
     LaunchedEffect(uiState.loggedInUser) {
         uiState.loggedInUser?.let { user ->
-            onLoginSuccess(user.nombre, user.rol)
+            onLoginSuccess(user)
         }
     }
 
@@ -141,7 +141,7 @@ fun LoginScreen(
                             username = it
                             viewModel.clearError()
                         },
-                        label = { Text("Usuario") },
+                        label = { Text("Correo electrónico") },
                         leadingIcon = {
                             Icon(
                                 Icons.Outlined.Person,
@@ -158,7 +158,7 @@ fun LoginScreen(
                             cursorColor = MintGreen
                         ),
                         singleLine = true,
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
                         keyboardActions = KeyboardActions(
                             onNext = { focusManager.moveFocus(FocusDirection.Down) }
                         )
@@ -279,7 +279,7 @@ fun LoginScreen(
 
                     // Footer hint
                     Text(
-                        text = "Usuario: Liz  •  Contraseña: 12345",
+                        text = "Ingresa con tu cuenta de FashGO",
                         style = MaterialTheme.typography.bodySmall,
                         color = TextTertiary,
                         textAlign = TextAlign.Center
